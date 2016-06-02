@@ -31,9 +31,17 @@ package com.lewei.Simple;
  * purposes.
  */
 
-import java.io.*;
-import java.util.*;
-import javax.comm.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.TooManyListenersException;
+
+import javax.comm.CommPortIdentifier;
+import javax.comm.PortInUseException;
+import javax.comm.SerialPort;
+import javax.comm.SerialPortEvent;
+import javax.comm.SerialPortEventListener;
+import javax.comm.UnsupportedCommOperationException;
 
 public class SimpleRead implements Runnable, SerialPortEventListener {
     static CommPortIdentifier portId;
@@ -49,8 +57,8 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
         while (portList.hasMoreElements()) {
             portId = (CommPortIdentifier) portList.nextElement();
             if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-                // if (portId.getName().equals("COM1")) {
-                if (portId.getName().equals("/dev/term/a")) {
+                 if (portId.getName().equals("COM2")) {
+//                if (portId.getName().equals("/dev/term/a")) {
                     SimpleRead reader = new SimpleRead();
                 }
             }
@@ -69,7 +77,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
 	} catch (TooManyListenersException e) {}
         serialPort.notifyOnDataAvailable(true);
         try {
-            serialPort.setSerialPortParams(9600,
+            serialPort.setSerialPortParams(57600,
                 SerialPort.DATABITS_8,
                 SerialPort.STOPBITS_1,
                 SerialPort.PARITY_NONE);
@@ -103,7 +111,7 @@ public class SimpleRead implements Runnable, SerialPortEventListener {
                 while (inputStream.available() > 0) {
                     int numBytes = inputStream.read(readBuffer);
                 }
-                System.out.print(new String(readBuffer));
+                System.out.println((new String(readBuffer)).trim());
             } catch (IOException e) {}
             break;
         }

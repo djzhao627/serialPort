@@ -11,7 +11,7 @@ public class test{
 
         String retStr = new String("");
         String sss = new String();
-        String alarmNumber = new String("10086");
+        String alarmNumber = new String("18896807726");
 
         // check for messages
         retStr = stg.checkSms();
@@ -21,7 +21,7 @@ public class test{
         }
        
         // send a message
-      //  sss = stg.sendSms(alarmNumber,"jf");
+        sss = stg.sendSms(alarmNumber,"≤‚ ‘∂Ã–≈£°");
 
 	}
 
